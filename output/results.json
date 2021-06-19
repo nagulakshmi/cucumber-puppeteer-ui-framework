@@ -8,7 +8,24 @@
         "keyword": "Scenario",
         "line": 4,
         "name": "Test 1 - Verify Single Borrower Calculation",
-        "steps": [],
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 0
+            }
+          }
+        ],
         "tags": [
           {
             "name": "@test",

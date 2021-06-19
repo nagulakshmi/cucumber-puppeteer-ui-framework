@@ -4,7 +4,7 @@
   "description": "UI Test framework",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=default ./node_modules//@cucumber/cucumber/bin/cucumber-js --tags=@test ./features/*.feature -r ./step_definitions/ -f json:output/results.json"
+    "test": "cross-env NODE_ENV=local ./node_modules//@cucumber/cucumber/bin/cucumber-js --tags=@test ./features/*.feature -r ./step_definitions/ -f json:output/results.json"
   },
   "repository": {
     "type": "git",
@@ -17,9 +17,9 @@
   },
   "homepage": "https://github.com/nagulakshmi/cucumber-puppeteer-ui-framework#readme",
   "dependencies": {
+    "@cucumber/cucumber": "^7.3.0",
     "chai": "^4.3.4",
     "cross-env": "^7.0.3",
-    "cucumber": "^7.0.0-rc.0",
     "konfig": "^0.2.1",
     "puppeteer": "^10.0.0"
   }

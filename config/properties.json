@@ -1,0 +1,11 @@
+{
+  "local": {
+    "baseUrl" : "https://www.anz.com.au/personal/home-loans/calculators-tools/much-borrow/"
+  },
+  "dev": {
+    "baseUrl" : "https://www.anz.com.au/personal/home-loans/calculators-tools/much-borrow/"
+  },
+  "stage": {
+    "baseUrl" : "https://www.anz.com.au/personal/home-loans/calculators-tools/much-borrow/"
+  }
+}
