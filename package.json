@@ -21,6 +21,7 @@
     "chai": "^4.3.4",
     "cross-env": "^7.0.3",
     "konfig": "^0.2.1",
-    "puppeteer": "^10.0.0"
+    "puppeteer": "^10.0.0",
+    "winston": "^3.3.3"
   }
 }
