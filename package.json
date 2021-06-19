@@ -1,0 +1,19 @@
+{
+  "name": "ui-test-framework",
+  "version": "1.0.0",
+  "description": "UI Test framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nagulakshmi/cucumber-puppeteer-ui-framework.git"
+  },
+  "author": "Nagalakshmi Selvaraj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nagulakshmi/cucumber-puppeteer-ui-framework/issues"
+  },
+  "homepage": "https://github.com/nagulakshmi/cucumber-puppeteer-ui-framework#readme"
+}

@@ -1,1 +1,1 @@
-# cucumber-puppeteer-ui-framework
+# UI Test framework (Cucumber + Puppeteer)
