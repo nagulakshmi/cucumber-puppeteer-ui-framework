@@ -3,39 +3,40 @@ const {
     AfterAll,
     Before,
     After,
-    setDefaultTimeout,
-    Given
+    setDefaultTimeout
 } = require('@cucumber/cucumber')
+
+const appConstants = require('../support/constants')
 
 const puppeteer = require('puppeteer')
 
-BeforeAll(async function () {
+//https://github.com/cucumber/cucumber-js/issues/1610 - setDefault timeout is not working on cucumber7.
+//Calling outside of hooks, this will make sure timeout set properly. Application not loading in 5000ms in firefox browser.
+setDefaultTimeout(appConstants.pageTimeout)
 
+BeforeAll(async () => {
     setGlobalVariables()
     logger.info("Before starting test suite...")
     scope.driver = puppeteer
-
     logger.info("Running the tests on node environment :", process.env.NODE_ENV)
-    setDefaultTimeout(constants.pageTimeout)
 })
 
-Before(async function () {
+Before(async () => {
     logger.info("Before starting the test ...")
     if (scope.browser != null) {
-        scope.browser.close()
+        await scope.browser.close()
     }
 
-    await launchBrowser();
-
+    await launchBrowser()
     logger.info("The browser instance started successfully...")
 })
 
-After(async function () {
+After(async () =>  {
     logger.info("After execution of test....")
     await scope.browser.close()
 })
 
-AfterAll(async function () {
+AfterAll(async () => {
     logger.info("After execution of all tests in the suite")
     if (scope.browser != null) {
         await scope.browser.close()
@@ -46,7 +47,10 @@ AfterAll(async function () {
 const setGlobalVariables = () => {
     global.logger = configureLogger()
     global.scope = require('../support/scope')
-    global.constants = require('../support/constants')
+    global.constants = appConstants
+    global.find = require('../support/find')
+    global.utils = require('../support/utils')
+
 }
 
 const configureLogger = () => {
@@ -67,14 +71,16 @@ const launchBrowser = async () =>  {
     scope.browser = await puppeteer.launch({
         headless: constants.headlessMode,
         devtools: false,
+        timeout: constants.pageTimeout,
         ignoreHTTPErrors: true,
+        product: "chrome",
         args: [
             '--no-sandbox',
-            '--window-size=1920, 1080',
             '--inspect-brk',
             '--remote-debugging-port=9000',
             '--disable-setuid-sandbox',
             '--enable-logging',
+            '--single-process',
             '--v=1'
         ]
     })

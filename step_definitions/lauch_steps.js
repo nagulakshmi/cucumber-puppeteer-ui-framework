@@ -1,4 +1,4 @@
-const {Given} = require("@cucumber/cucumber")
+const {Given, setDefaultTimeout} = require("@cucumber/cucumber")
 
 Given('I launch borrowing capacity calculator application', async () => {
     try {
@@ -8,4 +8,8 @@ Given('I launch borrowing capacity calculator application', async () => {
     } catch (error) {
         logger.error("Unable to launch the application", error)
     }
-});
+})
+
+const applicationLoadStatus = () => {
+
+}
