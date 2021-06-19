@@ -73,7 +73,7 @@ const launchBrowser = async () =>  {
         devtools: false,
         timeout: constants.pageTimeout,
         ignoreHTTPErrors: true,
-        product: "chrome",
+        product: constants.browser,
         args: [
             '--no-sandbox',
             '--inspect-brk',

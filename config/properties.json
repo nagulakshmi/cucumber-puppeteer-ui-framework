@@ -4,20 +4,23 @@
     "width": 1366,
     "height": 768,
     "headlessMode": false,
-    "pageTimeout": 60000
+    "pageTimeout": 60000,
+    "browser": "chrome"
   },
   "dev": {
     "baseUrl" : "https://www.anz.com.au/personal/home-loans/calculators-tools/much-borrow/",
     "width": 1366,
     "height": 768,
     "headlessMode": false,
-    "pageTimeout": 60000
+    "pageTimeout": 60000,
+    "browser": "chrome"
   },
   "stage": {
     "baseUrl" : "https://www.anz.com.au/personal/home-loans/calculators-tools/much-borrow/",
     "width": 1366,
     "height": 768,
     "headlessMode": false,
-    "pageTimeout": 60000
+    "pageTimeout": 60000,
+    "browser": "chrome"
   }
 }

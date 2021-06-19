@@ -7,5 +7,6 @@ module.exports = {
     width: config.properties.width,
     height: config.properties.height,
     headlessMode: config.properties.headlessMode,
-    pageTimeout: config.properties.pageTimeout
+    pageTimeout: config.properties.pageTimeout,
+    browser: config.properties.browser
 }
