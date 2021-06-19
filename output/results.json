@@ -1,0 +1,28 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "borrowing-capacity-calculator;test-1---verify-single-borrower-calculation",
+        "keyword": "Scenario",
+        "line": 4,
+        "name": "Test 1 - Verify Single Borrower Calculation",
+        "steps": [],
+        "tags": [
+          {
+            "name": "@test",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "borrowing-capacity-calculator",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Borrowing capacity calculator",
+    "tags": [],
+    "uri": "features\\calculate.feature"
+  }
+]
