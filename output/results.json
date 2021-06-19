@@ -14,15 +14,67 @@
             "hidden": true,
             "result": {
               "status": "passed",
+              "duration": 720000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I launch borrowing capacity calculator application",
+            "match": {
+              "location": "step_definitions\\lauch_steps.js:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4639000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 6,
+            "name": "I select \"Single\" as applciation type",
+            "match": {
+              "location": "step_definitions\\calculate_steps.js:3"
+            },
+            "result": {
+              "status": "passed",
               "duration": 0
             }
           },
           {
-            "keyword": "Before",
-            "hidden": true,
+            "arguments": [],
+            "keyword": "And ",
+            "line": 7,
+            "name": "I enter \"0\" as number of dependents",
+            "match": {
+              "location": "step_definitions\\calculate_steps.js:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "I select \"Home to live in\" as property you would like to buy",
+            "match": {
+              "location": "step_definitions\\calculate_steps.js:13"
+            },
             "result": {
               "status": "passed",
               "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 215000000
             }
           }
         ],
