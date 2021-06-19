@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/nagulakshmi/cucumber-puppeteer-ui-framework/issues"
   },
-  "homepage": "https://github.com/nagulakshmi/cucumber-puppeteer-ui-framework#readme"
+  "homepage": "https://github.com/nagulakshmi/cucumber-puppeteer-ui-framework#readme",
+  "dependencies": {
+    "chai": "^4.3.4",
+    "cross-env": "^7.0.3",
+    "cucumber": "^7.0.0-rc.0",
+    "konfig": "^0.2.1",
+    "puppeteer": "^10.0.0"
+  }
 }
