@@ -9,7 +9,3 @@ Given('I launch borrowing capacity calculator application', async () => {
         logger.error("Unable to launch the application", error)
     }
 })
-
-const applicationLoadStatus = () => {
-
-}
