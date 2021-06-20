@@ -8,7 +8,7 @@ const generateTestReport = () => {
         output: 'output/cucumber_report.html',
         reportSuiteAsScenarios: true,
         scenarioTimestamp: true,
-        screenshotsDirectory: '/screenshot',
+        screenshotsDirectory: 'screenshots/',
         launchReport: true,
         storeScreenshots: true
     }

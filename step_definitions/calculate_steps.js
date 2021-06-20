@@ -5,9 +5,11 @@ Then('I select {string} as application type', async (applicationType) => {
     return await element.click()
 })
 
-Then('I enter {string} as number of dependents', async (value) => {
+Then('I select {string} as number of dependents', async (expectedValue) => {
     const element = await find.findElementBySelector('select[title="Number of dependants"]')
-    return element.value = value
+    return await scope.page.evaluate((element, expectedValue) => {
+        element.value = expectedValue
+    }, element, expectedValue)
 })
 
 Then('I select {string} as property you would like to buy', async (propertyType) => {
@@ -21,39 +23,12 @@ Then('I enter {string} as {string}', async (labelText, income) => {
 })
 
 Then('I feed {string} as {string}', async (labelText, value) => {
-    let element = null
-    //Don't use xpath, if the id is available. Switch case logic used, considering less number of elements in a page.
-    switch (labelText) {
-        case 'Living expenses':
-            element = await find.findElementById('expenses')
-            break
-        case 'Current home loan repayments':
-            element = await find.findElementById('homeloans')
-            break
-        case 'Other loan repayments':
-            element = await find.findElementById('otherloans')
-            break
-        case 'Total credit card limits':
-            element = await find.findElementById('credit')
-            break
-        default:
-            logger.error("Unable to find th element for : " + labelText)
-            throw new Error("Unable to find th element for : " + labelText)
-    }
+    let element = await findExpensesElements(labelText)
     return input.sendKeys(element, value)
 })
 
 When('I click on {string} to calculate', async (buttonName) => {
-    let element = null
-    //Switch case used even though only one condition, This can be fixed without switch case by referring direct element.
-    switch (buttonName) {
-        case 'Work out how much I could borrow':
-            element = await find.findElementById('btnBorrowCalculater')
-            break
-        default:
-            logger.error("Unable to find th element for : " + buttonName)
-            throw new Error("Unable to find th element for : " + buttonName)
-    }
+    const element = await find.findElementById('btnBorrowCalculater')
     return await element.click()
 })
 
@@ -65,5 +40,54 @@ Then('I should see borrowing estimate as {string}', async (borrowingEstimate) =>
 })
 
 Then('I capture the current screen for reference', async () => {
-    return await utils.takeScreenShot('calcualte_feature')
+    return await utils.takeScreenShot()
 })
+
+When('I click on {string} button', async (elementLabel) => {
+    logger.info("Processing button element :" +  elementLabel)
+    const element = await find.findElementBySelector('button[class=start-over]')
+    return await element.click()
+})
+
+Then('I should see {string} as {string}', async (question, expectedValue) => {
+    logger.info("Processing question :" +  question)
+    const element = await find.findElementByXPath('//li[contains(label, "' + expectedValue +'")]//input')
+    const actualValue = await scope.page.evaluate(el => el.checked, element)
+    return assert.equal(actualValue, true)
+})
+
+Then('I should see Number of dependants as {string}', async (value) => {
+    const element = await find.findElementBySelector('select[title="Number of dependants"]')
+    const actualValue = await scope.page.evaluate(el=>el.value, element)
+    return assert.equal(actualValue, value)
+})
+
+Then('It should display {string} as {string}', async (question, expectedValue) => {
+    logger.info("Processing question :" +  question)
+    const element = await find.findElementByXPath('//div[contains(label, "' + question +'")]//input')
+    const actualValue = await scope.page.evaluate(el => el.value, element)
+    return assert.equal(actualValue, expectedValue)
+})
+
+Then('It should show {string} as {string}', async (labelText, expectedValue) => {
+    let element = await findExpensesElements(labelText)
+    const actualValue = await scope.page.evaluate(el => el.value, element)
+    return assert.equal(actualValue, expectedValue)
+})
+
+const findExpensesElements = async (labelText) => {
+    //Don't use xpath, if the id is available. Switch case logic used, considering less number of elements in a page.
+    switch (labelText) {
+        case 'Living expenses':
+            return await find.findElementById('expenses')
+        case 'Current home loan repayments':
+            return await find.findElementById('homeloans')
+        case 'Other loan repayments':
+            return await find.findElementById('otherloans')
+        case 'Total credit card limits':
+            return await find.findElementById('credit')
+        default:
+            logger.error("Unable to find th element for : " + labelText)
+            throw new Error("Unable to find th element for : " + labelText)
+    }
+}

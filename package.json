@@ -4,7 +4,7 @@
   "description": "UI Test framework",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=local ./node_modules//@cucumber/cucumber/bin/cucumber-js --tags=@test ./features/*.feature -r ./step_definitions/ -f json:output/results.json && node createTestReport.js"
+    "test": "cross-env NODE_ENV=local ./node_modules//@cucumber/cucumber/bin/cucumber-js --tags=@smoke ./features/*.feature -r ./step_definitions/ -f json:output/results.json && node createTestReport.js"
   },
   "repository": {
     "type": "git",

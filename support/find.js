@@ -52,6 +52,15 @@ const findElementBySelector = async (selector) => {
     throw new Error("Unable to find using selector :" + selector)
 }
 
+const findElementsBySelector = async (selector) => {
+    const elements = await scope.page.$$(selector)
+    if (elements.length !== 0) {
+        return elements
+    }
+    logger.error("Unable to find using selector :" + selector)
+    throw new Error("Unable to find using selector :" + selector)
+}
+
 module.exports = {
     findElementById,
     findElementByClassName,
@@ -59,5 +68,6 @@ module.exports = {
     findElementByTag,
     findElementByTestId,
     findElementByTagAndText,
-    findElementBySelector
+    findElementBySelector,
+    findElementsBySelector
 }
