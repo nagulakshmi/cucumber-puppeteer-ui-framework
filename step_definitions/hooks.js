@@ -31,8 +31,12 @@ Before(async () => {
     logger.info("The browser instance started successfully...")
 })
 
-After(async () =>  {
+//Arrow function binds the current context, which prevents the cucumber world instance
+//https://github.com/cucumber/cucumber-js/issues/790
+After(async function () {
     logger.info("After execution of test....")
+    const screenshot = await scope.page.screenshot()
+    this.attach(screenshot, "image/png")
     await scope.browser.close()
 })
 
