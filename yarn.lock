@@ -1002,7 +1002,7 @@ pump@^3.0.0:
 
 puppeteer@^10.0.0:
   version "10.0.0"
-  resolved "https://registry.npmjs.org/puppeteer/-/puppeteer-10.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-10.0.0.tgz#1b597c956103e2d989ca17f41ba4693b20a3640c"
   integrity sha512-AxHvCb9IWmmP3gMW+epxdj92Gglii+6Z4sb+W+zc2hTTu10HF0yg6hGXot5O74uYkVqG3lfDRLfnRpi6WOwi5A==
   dependencies:
     debug "4.3.1"

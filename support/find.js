@@ -34,7 +34,7 @@ const findElementByTagAndText = async (tagType, tagText) => {
     for (const element of elements) {
         const elementText = await scope.page.evaluate(el => el.innerText ? el.innerText.trim() : "", element)
         if (elementText === tagText) {
-            logger.info("Match found for type :" + tagType + " and text :", tagText)
+            logger.info("Match found for type :" + tagType + " and text :" + tagText)
             return element
         }
     }
