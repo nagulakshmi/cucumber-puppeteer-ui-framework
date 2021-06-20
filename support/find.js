@@ -1,13 +1,23 @@
-const findElementById = async () => {
-    //TODO:- Implement if required
+const findElementById = async (elementId) => {
+    const element = await scope.page.$('#'+ elementId)
+    if (element == null) {
+        logger.error("Unable to find element using element id: " + elementId)
+        throw new Error("Unable to find element using element id: " +  elementId)
+    }
+    return element
 }
 
 const findElementByClassName = async () => {
     //TODO:- Implement if required
 }
 
-const findElementByXPath = async () => {
-    //TODO:- Implement if required
+const findElementByXPath = async (xpath) => {
+    const elements = await scope.page.$x(xpath)
+    if (elements.length !== 0) {
+        return elements[0]
+    }
+    logger.error("Unable to find element using xpath: " + xpath)
+    throw new Error("Unable to find element using xpath: " +  xpath)
 }
 
 const findElementByTag = async () => {
@@ -41,9 +51,6 @@ const findElementBySelector = async (selector) => {
     logger.error("Unable to find using selector :" + selector)
     throw new Error("Unable to find using selector :" + selector)
 }
-
-
-
 
 module.exports = {
     findElementById,

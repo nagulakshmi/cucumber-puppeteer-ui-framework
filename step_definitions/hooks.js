@@ -50,6 +50,11 @@ const setGlobalVariables = () => {
     global.constants = appConstants
     global.find = require('../support/find')
     global.utils = require('../support/utils')
+    global.input = require('../support/input')
+
+    global.chai = require('chai')
+    global.assert = chai.assert
+    global.expect = chai.expect
 
 }
 
