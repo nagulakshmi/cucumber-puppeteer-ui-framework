@@ -26,10 +26,7 @@ setDefinitionFunctionWrapper(function (fn, options) {
     return function (...args) {
         return fn.apply(this, args)
             .catch(async error => {
-                if (scope.page !== null) {
-                    const screenshot = await scope.page.screenshot()
-                    attach(screenshot, "image/png")
-                }
+                await utils.takeScreenShot()
                 throw error;
             });
     }
@@ -44,10 +41,6 @@ BeforeAll(async () => {
 
 Before(async () => {
     logger.info("Before starting the test ...")
-    if (scope.browser != null) {
-        await scope.browser.close()
-    }
-
     await utils.launchBrowser(puppeteer)
     logger.info("The browser instance started successfully...")
 })
@@ -56,18 +49,11 @@ Before(async () => {
 //https://github.com/cucumber/cucumber-js/issues/790
 After(async function (scenario) {
     logger.info("After execution of test....")
-    if (scope.page !== null) {
-        const screenshot = await scope.page.screenshot()
-        attach(screenshot, "image/png")
-    }
-    if (scope.browser !== null) {
-        await scope.browser.close()
-    }
+    await utils.takeScreenShot()
+    await utils.closeBrowserInstance()
 })
 
 AfterAll(async () => {
     logger.info("After execution of all tests in the suite")
-    if (scope.browser != null) {
-        await scope.browser.close()
-    }
+    await utils.closeBrowserInstance()
 })

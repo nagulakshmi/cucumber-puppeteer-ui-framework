@@ -7,8 +7,10 @@ const isUndefinedOrNull = (value) => {
 }
 
 const takeScreenShot = async () => {
-    const screenshot = await scope.page.screenshot()
-    attach(screenshot, "image/png")
+    if (scope.page !== null) {
+        const screenshot = await scope.page.screenshot()
+        attach(screenshot, "image/png")
+    }
 }
 
 const configureLogger = () => {
@@ -70,11 +72,18 @@ const launchBrowser = async (puppeteer) =>  {
     })
 }
 
+const closeBrowserInstance = async () => {
+    if (scope.browser !== null) {
+        await scope.browser.close()
+    }
+}
+
 module.exports = {
     isUndefined,
     isUndefinedOrNull,
     takeScreenShot,
     configureLogger,
     setGlobalVariables,
-    launchBrowser
+    launchBrowser,
+    closeBrowserInstance
 }

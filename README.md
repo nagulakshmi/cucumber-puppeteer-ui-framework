@@ -16,13 +16,14 @@
 * Uses all latest node version & npm modules
 * properties.json used to adjust each environment, headless mode and screen settings.
 * info & error logs added into a file for the user reference
-* Captures screenshot on failure
-* Executes two test in parallel
+* Captures screenshot on failure (One negative scenario added to capture the report)
 
 By default, the test suite runs using Chromium browser. The browser product can be updated in the properties.json, current code base supports both firefox and chrome
 The below instruction helps users to switch between the browsers.
 
 ### How to switch between the browsers?
+
+* Make sure the browser name updated in the properties.json file, this update required only for corresponding environment profile.
 
 #### For Windows Operating System - firefox
 `set PUPPETEER_PRODUCT=firefox&&yarn add puppeteer&&yarn install`
