@@ -23,7 +23,7 @@ Then('I enter {string} as {string}', async (labelText, income) => {
 })
 
 Then('I feed {string} as {string}', async (labelText, value) => {
-    let element = await findExpensesElements(labelText)
+    let element = await stepHelper.findExpensesElements(labelText)
     return input.sendKeys(element, value)
 })
 
@@ -70,24 +70,7 @@ Then('It should display {string} as {string}', async (question, expectedValue) =
 })
 
 Then('It should show {string} as {string}', async (labelText, expectedValue) => {
-    let element = await findExpensesElements(labelText)
+    let element = await stepHelper.findExpensesElements(labelText)
     const actualValue = await scope.page.evaluate(el => el.value, element)
     return assert.equal(actualValue, expectedValue)
 })
-
-const findExpensesElements = async (labelText) => {
-    //Don't use xpath, if the id is available. Switch case logic used, considering less number of elements in a page.
-    switch (labelText) {
-        case 'Living expenses':
-            return await find.findElementById('expenses')
-        case 'Current home loan repayments':
-            return await find.findElementById('homeloans')
-        case 'Other loan repayments':
-            return await find.findElementById('otherloans')
-        case 'Total credit card limits':
-            return await find.findElementById('credit')
-        default:
-            logger.error("Unable to find th element for : " + labelText)
-            throw new Error("Unable to find th element for : " + labelText)
-    }
-}

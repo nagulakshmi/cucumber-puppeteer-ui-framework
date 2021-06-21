@@ -9,6 +9,7 @@ const {
 } = require('@cucumber/cucumber')
 
 const appConstants = require('../support/constants')
+const utils = require('../support/utils')
 
 const puppeteer = require('puppeteer')
 
@@ -25,15 +26,17 @@ setDefinitionFunctionWrapper(function (fn, options) {
     return function (...args) {
         return fn.apply(this, args)
             .catch(async error => {
-                const screenshot = await scope.page.screenshot()
-                attach(screenshot, "image/png")
+                if (scope.page !== null) {
+                    const screenshot = await scope.page.screenshot()
+                    attach(screenshot, "image/png")
+                }
                 throw error;
             });
     }
 })
 
 BeforeAll(async () => {
-    setGlobalVariables()
+    utils.setGlobalVariables()
     logger.info("Before starting test suite...")
     scope.driver = puppeteer
     logger.info("Running the tests on node environment :", process.env.NODE_ENV)
@@ -45,7 +48,7 @@ Before(async () => {
         await scope.browser.close()
     }
 
-    await launchBrowser()
+    await utils.launchBrowser(puppeteer)
     logger.info("The browser instance started successfully...")
 })
 
@@ -53,9 +56,13 @@ Before(async () => {
 //https://github.com/cucumber/cucumber-js/issues/790
 After(async function (scenario) {
     logger.info("After execution of test....")
-    const screenshot = await scope.page.screenshot()
-    attach(screenshot, "image/png")
-    await scope.browser.close()
+    if (scope.page !== null) {
+        const screenshot = await scope.page.screenshot()
+        attach(screenshot, "image/png")
+    }
+    if (scope.browser !== null) {
+        await scope.browser.close()
+    }
 })
 
 AfterAll(async () => {
@@ -64,62 +71,3 @@ AfterAll(async () => {
         await scope.browser.close()
     }
 })
-
-//Set the global modules here
-const setGlobalVariables = () => {
-    global.logger = configureLogger()
-    global.scope = require('../support/scope')
-    global.constants = appConstants
-    global.find = require('../support/find')
-    global.utils = require('../support/utils')
-    global.input = require('../support/input')
-
-    global.chai = require('chai')
-    global.assert = chai.assert
-    global.expect = chai.expect
-
-}
-
-const configureLogger = () => {
-    const winston = require('winston')
-    return winston.createLogger({
-        level: 'info',
-        format: winston.format.simple(),
-        transports: [
-            new winston.transports.Console(),
-            new winston.transports.File({filename: 'combined.log'})
-        ]
-    })
-}
-
-const launchBrowser = async () =>  {
-    logger.info("Launch the browser instance....")
-
-    scope.browser = await puppeteer.launch({
-        headless: constants.headlessMode,
-        devtools: false,
-        timeout: constants.pageTimeout,
-        ignoreHTTPErrors: true,
-        product: constants.browser,
-        args: [
-            '--no-sandbox',
-            '--inspect-brk',
-            '--remote-debugging-port=9000',
-            '--disable-setuid-sandbox',
-            '--enable-logging',
-            '--single-process',
-            '--v=1'
-        ]
-    })
-
-    scope.folder = '/'
-    logger.info("The browser instance start....")
-
-    scope.page = await scope.browser.newPage()
-    await scope.page.setCacheEnabled(false)
-
-    await scope.page.setViewport({
-        width: constants.width,
-        height: constants.height
-    })
-}
