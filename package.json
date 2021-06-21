@@ -4,9 +4,9 @@
   "description": "UI Test framework",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=local ./node_modules//@cucumber/cucumber/bin/cucumber-js --tags=@smoke ./features/*.feature -r ./step_definitions/ -f json:output/results.json && node createTestReport.js",
-    "testDev": "cross-env NODE_ENV=dev ./node_modules//@cucumber/cucumber/bin/cucumber-js --tags=@smoke ./features/*.feature -r ./step_definitions/ -f json:output/results.json && node createTestReport.js",
-    "testStage": "cross-env NODE_ENV=stage ./node_modules//@cucumber/cucumber/bin/cucumber-js --tags=@smoke ./features/*.feature -r ./step_definitions/ -f json:output/results.json && node createTestReport.js"
+    "test": "(cross-env NODE_ENV=local cucumber-js  --parallel 2 --tags=@smoke ./features/*.feature -r ./step_definitions/ -f json:output/results.json && node createTestReport.js) || node createTestReport.js" ,
+    "testDev": "(cross-env NODE_ENV=dev cucumber-js --parallel 2 --tags=@smoke ./features/*.feature -r ./step_definitions/ -f json:output/results.json && node createTestReport.js) || node createTestReport.js",
+    "testStage": "(cross-env NODE_ENV=stage cucumber-js --parallel 2 --tags=@smoke ./features/*.feature -r ./step_definitions/ -f json:output/results.json && node createTestReport.js) || node createTestReport.js"
   },
   "repository": {
     "type": "git",

@@ -16,6 +16,8 @@
 * Uses all latest node version & npm modules
 * properties.json used to adjust each environment, headless mode and screen settings.
 * info & error logs added into a file for the user reference
+* Captures screenshot on failure
+* Executes two test in parallel
 
 By default, the test suite runs using Chromium browser. The browser product can be updated in the properties.json, current code base supports both firefox and chrome
 The below instruction helps users to switch between the browsers.

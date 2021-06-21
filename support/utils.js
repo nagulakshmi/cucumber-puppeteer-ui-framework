@@ -9,11 +9,12 @@ const isUndefinedOrNull = (value) => {
 }
 
 const takeScreenShot = async () => {
-    await scope.page.screenshot({
+    const screenshot = await scope.page.screenshot({
         path: "." + scope.folder + "screenshots/" + uuidv4() + ".png",
         type: "jpeg",
         fullPage: true
     })
+    attach(screenshot, "image/png")
 }
 
 module.exports = {

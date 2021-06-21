@@ -3,7 +3,9 @@ const {
     AfterAll,
     Before,
     After,
-    setDefaultTimeout
+    setDefaultTimeout,
+    setWorldConstructor,
+    setDefinitionFunctionWrapper
 } = require('@cucumber/cucumber')
 
 const appConstants = require('../support/constants')
@@ -13,6 +15,22 @@ const puppeteer = require('puppeteer')
 //https://github.com/cucumber/cucumber-js/issues/1610 - setDefault timeout is not working on cucumber7.
 //Calling outside of hooks, this will make sure timeout set properly. Application not loading in 5000ms in firefox browser.
 setDefaultTimeout(appConstants.pageTimeout)
+
+setWorldConstructor(function World({attach, parameters}) {
+    global.attach = attach;
+    global.parameters = parameters;
+})
+
+setDefinitionFunctionWrapper(function (fn, options) {
+    return function (...args) {
+        return fn.apply(this, args)
+            .catch(async error => {
+                const screenshot = await scope.page.screenshot()
+                attach(screenshot, "image/png")
+                throw error;
+            });
+    }
+})
 
 BeforeAll(async () => {
     setGlobalVariables()
@@ -33,10 +51,10 @@ Before(async () => {
 
 //Arrow function binds the current context, which prevents the cucumber world instance
 //https://github.com/cucumber/cucumber-js/issues/790
-After(async function () {
+After(async function (scenario) {
     logger.info("After execution of test....")
     const screenshot = await scope.page.screenshot()
-    this.attach(screenshot, "image/png")
+    attach(screenshot, "image/png")
     await scope.browser.close()
 })
 
